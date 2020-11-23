@@ -32,7 +32,7 @@ namespace MiniDumpStartupHook
 
             if (string.IsNullOrWhiteSpace(exceptionTypes))
             {
-                exceptionTypes = "BadImageFormatException;TypeLoadException;AccessViolationException;ApplicationException;ExecutionEngineException";
+                exceptionTypes = "BadImageFormatException;AccessViolationException;ApplicationException;ExecutionEngineException";
             }
             ExceptionTypes = exceptionTypes.Split(';', StringSplitOptions.RemoveEmptyEntries);
         }

@@ -17,6 +17,7 @@ internal class StartupHook
         }
 
         AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
+        Console.WriteLine("MiniDump startup hook has been initialized.");
     }
 
     private static void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e)
