@@ -22,7 +22,7 @@ internal class StartupHook
     private static void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e)
     {
         var exceptionFullName = e.Exception?.GetType().FullName ?? string.Empty;
-        var exceptionTypeName = Array.Find(Settings.ExceptionTypes ?? Array.Empty(), item => exceptionFullName.Contains(item));
+        var exceptionTypeName = Array.Find(Settings.ExceptionTypes ?? Array.Empty<string>(), item => exceptionFullName.Contains(item));
 
         if (exceptionTypeName != null)
         {

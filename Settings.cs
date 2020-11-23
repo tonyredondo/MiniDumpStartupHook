@@ -20,7 +20,7 @@ namespace MiniDumpStartupHook
                 Console.WriteLine(ex);
             }
 
-            string exceptionTypes;
+            string exceptionTypes = null;
             try
             {
                 exceptionTypes = Environment.GetEnvironmentVariable("MINIDUMP_EXCEPTIONTYPES");
