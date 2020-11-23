@@ -21,18 +21,14 @@ internal class StartupHook
 
     private static void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e)
     {
-        if (e.Exception is BadImageFormatException)
+        var exceptionFullName = e.Exception?.GetType().FullName ?? string.Empty;
+        var exceptionTypeName = Array.Find(Settings.ExceptionTypes ?? Array.Empty(), item => exceptionFullName.Contains(item));
+
+        if (exceptionTypeName != null)
         {
             if (Interlocked.CompareExchange(ref _miniDumpExecuted, 1, 0) == 0)
             {
-                MiniDump.WriteDump(Process.GetCurrentProcess(), nameof(BadImageFormatException));
-            }
-        }
-        else if (e.Exception is TypeLoadException)
-        {
-            if (Interlocked.CompareExchange(ref _miniDumpExecuted, 1, 0) == 0)
-            {
-                MiniDump.WriteDump(Process.GetCurrentProcess(), nameof(TypeLoadException));
+                MiniDump.WriteDump(Process.GetCurrentProcess(), exceptionTypeName);
             }
         }
     }

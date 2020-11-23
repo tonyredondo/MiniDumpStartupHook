@@ -13,18 +13,7 @@ namespace MiniDumpStartupHook
             {
                 var dumpFileName = $"{proc.ProcessName}-{proc.Id}-{name}-{DateTime.UtcNow.Ticks}.dmp";
 
-                if (string.IsNullOrWhiteSpace(outputFolder))
-                {
-                    try
-                    {
-                        outputFolder = Environment.GetEnvironmentVariable("MINIDUMP_PATH");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex);
-                    }
-                }
-
+                outputFolder ??= Settings.Path;
                 if (!string.IsNullOrWhiteSpace(outputFolder))
                 {
                     dumpFileName = Path.Combine(outputFolder, dumpFileName);
